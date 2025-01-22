@@ -1,6 +1,6 @@
 package com.asc.entity;
 
-import com.asc.entity.abstractentity.IdentityEntity;
+import com.asc.entity.common.IdentityEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Getter;

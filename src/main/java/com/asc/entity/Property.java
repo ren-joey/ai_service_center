@@ -1,7 +1,7 @@
 package com.asc.entity;
 
 import com.asc.constant.PropertyTypeEnum;
-import com.asc.entity.abstractentity.IdentityEntity;
+import com.asc.entity.common.IdentityEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

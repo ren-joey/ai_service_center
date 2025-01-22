@@ -1,4 +1,4 @@
-package com.asc.entity.abstractentity;
+package com.asc.entity.common;
 
 import com.asc.constant.RarityEnum;
 import com.asc.constant.ThemeEnum;

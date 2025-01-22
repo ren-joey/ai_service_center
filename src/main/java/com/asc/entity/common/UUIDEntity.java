@@ -1,4 +1,4 @@
-package com.asc.entity.abstractentity;
+package com.asc.entity.common;
 
 import com.asc.entity.User;
 import jakarta.persistence.Column;

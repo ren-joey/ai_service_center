@@ -1,4 +1,4 @@
-package com.asc.entity.abstractentity;
+package com.asc.entity.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;

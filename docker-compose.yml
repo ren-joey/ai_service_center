@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  trod-db:
+    image: mariadb:10.5
+    container_name: trod-db
+    environment:
+      - MARIADB_DATABASE=${SPRING_DATASOURCE_DATABASE}
+      - MARIADB_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker_data/mariadb_data:/var/lib/mysql
+
+  trod-cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: trod-cadvisor
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
+  trod-prometheus:
+    image: prom/prometheus:latest
+    container_name: trod-prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    depends_on:
+      - trod-cadvisor
+
+  trod-grafana:
+    image: grafana/grafana:latest
+    container_name: trod-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./docker_data/grafana_data:/var/lib/grafana
+
+#  trod-postfix:
+#    image: boky/postfix
+#    container_name: trod-postfix
+#    hostname: mail.example.com
+#    environment:
+#      - MAILNAME=example.com
+#      - RELAYHOST=
+#      - MYNETWORKS=127.0.0.0/8
+#      - ROOT_ALIAS=root@example.com
+#      - SMTP_USERNAME=your_username
+#      - SMTP_PASSWORD=your_password
+#      - USE_TLS=yes
+#      - ALLOWED_SENDER_DOMAINS=example.com
+#    ports:
+#      - "25:25"
+#      - "587:587"
+#    volumes:
+#      - ./docker_data/postfix_data:/var/spool/postfix
+#      - ./docker_data/postfix_logs:/var/log/mail
+#
+#  trod-dovecot:
+#    image: tvial/docker-mailserver
+#    container_name: trod-dovecot
+#    hostname: mail.example.com
+#    environment:
+#      - DMS_DEBUG=0
+#      - ENABLE_SPAMASSASSIN=0
+#      - ENABLE_CLAMAV=0
+#      - ENABLE_FAIL2BAN=0
+#      - ENABLE_POSTGREY=0
+#      - ONE_DIR=1
+#      - SSL_TYPE=letsencrypt
+#    volumes:
+#      - ./docker_data/maildata:/var/mail
+#      - ./docker_data/mailstate:/var/mail-state
+#      - ./docker_data/mailconfig:/tmp/docker-mailserver
+#    ports:
+#      - "143:143" # IMAP
+#      - "993:993" # IMAPS
+#      - "110:110" # POP3
+#      - "995:995" # POP3S

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trod.mapper.CardMapper">
+    <insert id="insertMonsterCard" parameterType="com.trod.entity.Monster" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO monster
+            (
+             uuid,
+             name,
+             rarity,
+             cost,
+             attack,
+             defense,
+             health,
+             mana,
+             description,
+             created_time,
+             created_user_id,
+             updated_time,
+             updated_user_id
+            )
+        VALUES
+            (
+             #{uuid},
+             #{name},
+             #{rarity},
+             #{cost},
+             #{attack},
+             #{defense},
+             #{health},
+             #{mana},
+             #{description},
+             <include refid="com.trod.mapper.Common.currentWithMilliSeconds"/>,
+             #{createdUser.id},
+             <include refid="com.trod.mapper.Common.currentWithMilliSeconds"/>,
+             #{createdUser.id}
+            )
+    </insert>
+
+    <insert id="insertMainCharacter" parameterType="com.trod.entity.MainCharacter" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO main_character
+            (
+             uuid,
+             name,
+             rarity,
+             description,
+             cost,
+             health,
+             mana,
+             created_time,
+             created_user_id,
+             updated_time,
+             updated_user_id
+            )
+        VALUES
+            (
+             #{uuid},
+             #{name},
+             #{rarity},
+             #{description},
+             #{cost},
+             #{health},
+             #{mana},
+             <include refid="com.trod.mapper.Common.currentWithMilliSeconds"/>,
+             #{createdUser.id},
+             <include refid="com.trod.mapper.Common.currentWithMilliSeconds"/>,
+             #{createdUser.id}
+            )
+    </insert>
+</mapper>

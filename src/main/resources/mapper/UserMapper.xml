@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.trod.mapper.UserMapper">
+<mapper namespace="com.asc.mapper.UserMapper">
     <sql id="selectUserColumns">
         SELECT u.id AS user_id,
                u.username AS username,
@@ -31,7 +31,7 @@
         <include refid="selectUserColumns"/>
     </select>
 
-    <insert id="insert" parameterType="com.trod.entity.User" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.asc.entity.User" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user
             (
              uuid, username, email, password,
@@ -41,15 +41,15 @@
         VALUES
             (
              #{uuid}, #{username}, #{email}, #{password},
-             <include refid="com.trod.mapper.Common.currentWithMilliSeconds"/>,
-             <include refid="com.trod.mapper.Common.currentWithMilliSeconds"/>
+             <include refid="com.asc.mapper.Common.currentWithMilliSeconds"/>,
+             <include refid="com.asc.mapper.Common.currentWithMilliSeconds"/>
             )
     </insert>
 
-    <update id="update" parameterType="com.trod.entity.User">
+    <update id="update" parameterType="com.asc.entity.User">
         UPDATE user
         SET username = #{username}, email = #{email}, password = #{password},
-            updated_time = <include refid="com.trod.mapper.Common.currentWithMilliSeconds"/>
+            updated_time = <include refid="com.asc.mapper.Common.currentWithMilliSeconds"/>
         WHERE id = #{id}
     </update>
 
@@ -57,12 +57,12 @@
         DELETE FROM user WHERE id = #{id}
     </delete>
 
-    <resultMap id="userResultMap" type="com.trod.entity.User">
+    <resultMap id="userResultMap" type="com.asc.entity.User">
         <id property="id" column="user_id"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
         <result property="email" column="email"/>
-        <association property="gameRole" javaType="com.trod.entity.GameRole">
+        <association property="role" javaType="com.asc.entity.Role">
             <id property="id" column="game_role_id"/>
             <result property="role" column="game_role_enum" />
         </association>

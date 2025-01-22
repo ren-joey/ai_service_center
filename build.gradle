@@ -26,7 +26,8 @@ dependencies {
 		'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0',
 		'io.jsonwebtoken:jjwt:0.12.6',
 		'io.github.cdimascio:java-dotenv:5.2.2',
-		'javax.validation:validation-api:2.0.1.Final'
+		'javax.validation:validation-api:2.0.1.Final',
+        'org.json:json:20230227'
     )
 
     compileOnly(

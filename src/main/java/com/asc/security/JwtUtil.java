@@ -10,10 +10,13 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
+import static com.asc.constant.Text.Env.JWT_EXPIRATION_TIME;
+import static com.asc.constant.Text.Env.JWT_SECRET;
+
 @Component
 public class JwtUtil {
     private final SecretKey key = Keys
-            .hmacShaKeyFor(System.getProperty("JWT_SECRET").getBytes(StandardCharsets.UTF_8));
+            .hmacShaKeyFor(System.getProperty(JWT_SECRET).getBytes(StandardCharsets.UTF_8));
 
     public String extractUsername(String token) {
         return extractUsername(token, extractAllClaims(token));
@@ -33,7 +36,7 @@ public class JwtUtil {
 
     public String generateToken(String username) {
         // 1 day in milliseconds
-        long EXPIRATION_TIME = Long.parseLong(System.getProperty("JWT_EXPIRATION_TIME"));
+        long EXPIRATION_TIME = Long.parseLong(System.getProperty(JWT_EXPIRATION_TIME));
 
         ClaimsBuilder claims = Jwts.claims();
         claims.add("sub", username);

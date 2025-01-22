@@ -17,6 +17,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static com.asc.constant.Text.Env.JWT_KEY_NAME;
+
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
@@ -65,7 +67,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private String extractJwtFromCookie(HttpServletRequest request) {
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
-                if (cookie.getName().equals(System.getProperty("JWT_KEY_NAME"))) {
+                if (cookie.getName().equals(System.getProperty(JWT_KEY_NAME))) {
                     return cookie.getValue();
                 }
             }

@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.asc.constant.Text.Env.JWT_KEY_NAME;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -115,7 +117,7 @@ public class AuthService {
         if (user.isEmpty()) {
             throw new AuthenticationCredentialsNotFoundException("You are not logged in");
         }
-        Cookie cookie = new Cookie(System.getProperty("JWT_KEY_NAME"), "");
+        Cookie cookie = new Cookie(System.getProperty(JWT_KEY_NAME), "");
         cookie.setHttpOnly(true);
         cookie.setSecure(true);
         cookie.setPath("/");
@@ -124,7 +126,7 @@ public class AuthService {
     }
 
     public void addJwtToCookie(HttpServletResponse response, String jwt) {
-        Cookie cookie = new Cookie(System.getProperty("JWT_KEY_NAME"), jwt);
+        Cookie cookie = new Cookie(System.getProperty(JWT_KEY_NAME), jwt);
         cookie.setHttpOnly(true);
         cookie.setSecure(true);
         cookie.setPath("/");

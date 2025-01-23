@@ -1,5 +1,6 @@
 package com.asc.util;
 
+import com.asc.constant.OpenAiTextModelEnum;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.*;
@@ -13,9 +14,9 @@ public class OpenAiSender {
     public static String ASK_ENDPOINT = "https://api.openai.com/v1/chat/completions";
     public static String QUOTA_ENDPOINT = "https://api.openai.com/v1/dashboard/billing/credit_grants";
 
-    public static ResponseEntity<JSONObject> ask(JSONArray messages) {
+    public static ResponseEntity<JSONObject> ask(OpenAiTextModelEnum model, JSONArray messages) {
         JSONObject jsonBody = new JSONObject();
-        jsonBody.put("model", "gpt-3.5-turbo");
+        jsonBody.put("model", model.getModel());
         jsonBody.put("messages", messages);
         jsonBody.put("temperature", 0.7); // 随机性
 

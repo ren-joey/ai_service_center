@@ -19,7 +19,7 @@ public record RegisterRequestDto (
         @Email(message = "Email must be valid")
         String email,
 
-        @Schema(defaultValue = "PLAYER")
+        @Schema(defaultValue = "USER")
         RoleEnum role
 ) {
         public RegisterRequestDto(
@@ -27,6 +27,6 @@ public record RegisterRequestDto (
                 String password,
                 String email
         ) {
-                this(username, password, email, RoleEnum.PLAYER);
+                this(username, password, email, RoleEnum.USER);
         }
 }

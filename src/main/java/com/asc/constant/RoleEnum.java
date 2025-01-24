@@ -4,9 +4,11 @@ import lombok.Getter;
 
 @Getter
 public enum RoleEnum {
-    PLAYER(0),
-    GAME_MASTER(1),
-    ADMIN(2);
+    USER(0),
+    COMMUNITY(1),
+    PREMIUM(2),
+    ULTIMATE(3),
+    ADMIN(4);
 
     private final int index;
 

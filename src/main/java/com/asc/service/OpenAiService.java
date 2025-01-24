@@ -1,24 +1,18 @@
-package com.asc.controller;
+package com.asc.service;
 
 import com.asc.constant.OpenAiTextModelEnum;
 import com.asc.util.OpenAiSender;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
-@RestController
-@RequestMapping("/gpt")
-public class GptController {
-    @GetMapping("/quota")
+@Service
+public class OpenAiService {
     public JSONObject getQuota() {
         return OpenAiSender.getQuota().getBody();
     }
 
-    @PostMapping("/ask")
-    public JSONObject ask(
-        @RequestParam() OpenAiTextModelEnum model,
-        @RequestParam() String[] messages
-    ) {
+    public JSONObject ask(OpenAiTextModelEnum model, String[] messages) {
         JSONArray messagePackage = new JSONArray();
         messagePackage.put(new JSONObject().put("role", "system").put("content", "You are a helpful assistant."));
         for(String message : messages) {

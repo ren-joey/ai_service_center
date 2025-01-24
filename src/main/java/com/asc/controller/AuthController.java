@@ -26,7 +26,7 @@ public class AuthController {
 
     @GetMapping("/users/{id}")
     public UserResponseDto getUserById(@PathVariable Long id) {
-        authService.checkPermission(RoleEnum.GAME_MASTER);
+        authService.checkPermission(RoleEnum.ADMIN);
         return UserResponseDto.convert(
                 authService.getUserById(id)
         );
@@ -34,7 +34,7 @@ public class AuthController {
 
     @GetMapping("/users")
     public List<UserResponseDto> getAllUsers() {
-        authService.checkPermission(RoleEnum.GAME_MASTER);
+        authService.checkPermission(RoleEnum.ADMIN);
         return authService.getAllUsers()
                 .stream()
                 .map(UserResponseDto::convert)

@@ -22,6 +22,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // TODO:
+        // this filter could not exclude the specified paths
+        // and the exception thrown by jwtRequestFilter can not be caught by the global exception handler
+        // try to use the WebConfig from robotplatform instead, but it did not run successfully
         http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
